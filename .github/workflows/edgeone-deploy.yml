@@ -155,7 +155,15 @@ jobs:
           echo "BUILD_TARGET=edgeone" >> "$GITHUB_ENV"
           echo "EDGEONE_PAGES=1" >> "$GITHUB_ENV"
           echo "NODE_ENV=production" >> "$GITHUB_ENV"
-
+          
+      - name: Init Turso database
+        env:
+          TURSO_URL: ${{ secrets.TURSO_URL }}
+          TURSO_TOKEN: ${{ secrets.TURSO_TOKEN }}
+          USERNAME: ${{ secrets.USERNAME }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+        run: pnpm init:turso
+        
       - name: Build for EdgeOne
         run: pnpm run build:edgeone
 
